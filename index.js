@@ -34,14 +34,7 @@ const queryMoney = (acc1) => {
     return web3.eth.getBalance(acc1).toString();
 }
 
-let data = [{ sid: '0x08Ce9DCdc29E027Af71766DC1e868C6Cf05652b8',
-eth: '10',
-tid: '0x83f1f6689cD3137c6617c352150026a1B9b4138E',
-iter: 1 },
-{ sid: '0x08Ce9DCdc29E027Af71766DC1e868C6Cf05652b8',
-eth: '10',
-tid: '0x1582802572D336254EC9Df6d5E549Fc9BE170585',
-iter: 2 }];
+let data = [];
 
 app.get('/', (req, res) => {    
     res.sendFile(path.join(__dirname+'/public/login/index.html'))
@@ -49,12 +42,13 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
     const user = req.body.name;
+    console.log("user", user)
     MongoClient.connect(url, (err, client) => {
         console.log("Connected successfully to server") 
         const db = client.db(dbName);
-        db.collection("users").findOne({}, (err, result) => {
+        db.collection("users").findOne({name: user}, (err, result) => {
             if(err) throw err;
-            console.log(result.address);
+            console.log("user address", result.address);
             res.send(result.address);
             client.close();
         })        
@@ -73,7 +67,7 @@ app.get('/profile', (req, res) => {
     res.sendFile(path.join(__dirname+'/public/profile.html'))
 })
 
-let iter = 10;
+let iter = 1;
 app.post('/setNotifications', (req, res) => {
     const obj = {
         ...req.body,
@@ -87,9 +81,9 @@ app.post('/setNotifications', (req, res) => {
 
 app.post('/getNotifications', (req, res) => {
     console.log("getting not", req.body);
-    const id = req.body.tid;
+    const id = req.body.sid;
     console.log("id", id)
-    let resArr = data.filter((item) => item.sid == id);
+    let resArr = data.filter((item) => item.tid === id);
     console.log(resArr);
     res.send(resArr);
 })
