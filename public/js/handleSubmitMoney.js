@@ -8,4 +8,8 @@ const handleSendMoney = async () => {
         sid: address, eth, tid:id,
     }) 
     console.log("response", response);
+    
+    document.getElementById("id").value = "";
+    document.getElementById("eth").value = "";
+
 }

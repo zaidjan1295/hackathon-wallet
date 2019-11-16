@@ -77,6 +77,20 @@ app.post('/setNotifications', (req, res) => {
     data[data.length] = obj;
     console.log(data);
     res.send("data set");
+    
+    const accountSid = 'your key';
+const authToken = 'your token';
+const client = require('twilio')(accountSid, authToken);
+
+    client.messages
+      .create({
+         from: 'whatsapp:+14155238886',
+         body: 'Check you DPay wallet for updates!',
+         to: 'whatsapp:+919886406126'
+       })
+      .then(message => console.log(message.sid));
+
+
 })
 
 app.post('/getNotifications', (req, res) => {
@@ -116,6 +130,7 @@ app.post('/notificationYes', (req, res) => {
     transact(obj.sid, obj.tid, obj.eth);
     data = data.filter((item) => item.iter != iter);
     res.send("data send");
+
 })
 
 app.post('/notificationNo', (req, res) => {
