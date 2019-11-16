@@ -39,7 +39,7 @@ const queryMoney = () => {
 let data = [];
 
 app.get('/', (req, res) => {    
-    res.sendFile(path.join(__dirname+'/public/html/index.html'))
+    res.sendFile(path.join(__dirname+'/public/login/index.html'))
 })
 
 app.get('/login', (req, res) => {
@@ -103,6 +103,10 @@ const transact = () => {
 
 app.post('/notificationYes', (req, res) => {
     const iter = req.body.iter;
+    // var spawn = require("child_process").spawn;
+    // var process = spawn('python',["./transaction.py", 
+    //                         req.query.firstname, 
+    //                         req.query.lastname] );
     transact(),
     data = data.filter((item) => item.iter != iter);
     res.send("data send");
