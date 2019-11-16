@@ -1,7 +1,8 @@
 const getNotification = (async () => {
     console.log("getting notifications")
+    let address = localStorage.getItem("address");
     let data = await axios.post('http://localhost:8000/getNotifications', {
-        tid: 'rupam',
+        tid: address,
     })
     console.log(data);
     data.data.map( item => {

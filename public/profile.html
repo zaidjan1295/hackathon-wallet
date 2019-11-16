@@ -19,6 +19,7 @@
   <link rel="shortcut icon" href="images/favicon.png" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <script src="./js/handleSubmitMoney.js"></script>
+  <script src="./js/api.js"></script>
 </head>
 <body>
   <div class="container-scroller">
@@ -102,16 +103,44 @@
         <div class="content-wrapper">
           
           <div class="row">
-            <div class="col-md-12 grid-margin">
+            <div class="col-md-7 grid-margin">
               <div class="d-flex justify-content-between flex-wrap">
                 <div class="d-flex align-items-end flex-wrap">
                   <div class="mr-md-3 mr-xl-5">
-                    <h2>Welcome back,</h2>
-                    <p class="mb-md-0">Your analytics dashboard template.</p>
+                    <h2>Welcome back, <span id="nameData"></span></h2>
+                    <script>
+                        let name=localStorage.getItem("name");
+                        document.querySelector("#nameData").innerHTML = name;
+                    </script>
+                    <p class="mb-md-0">Your dpay wallet dashboard.</p>
                   </div>
                 </div>
-                
               </div>
+            </div>
+
+            <div class="col-md-3 grid-margin">
+              <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-end flex-wrap">
+                  <div class="mr-md-3 mr-xl-4" style="margin-left: 50px;">
+                    <h2 class="h2" style="position: relative;width: 161%;top: 14px;">Wallet Bal: &#8377;<span id="bal">100.00</span></h2>
+                  </div>
+                </div>
+                <script>
+                  // console.log("locslStorage", localStorage) -->
+                  let address = localStorage.getItem("address")
+                  //console.log("add", address) -->
+                  axios.post("http://localhost:8000/money", {
+                    address,
+                  })
+                  .then(data => {
+                      console.log("data", data)
+                  })
+                  
+                </script>
+                <div class="col-md-2"></div>
+
+              </div>
+            </div>
             </div>
           </div>
           

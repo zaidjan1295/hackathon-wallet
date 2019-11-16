@@ -52,13 +52,14 @@
             val = prediction[i].probability.toFixed(2);
             
             if(val>maxVal){
+                // console.log(maxVal)
                 maxVal = val;
-                if( maxVal == 1){
-                    // console.log(prediction[i].className);
-                    localStorage.setItem("name", prediction[i].className);
+                if( maxVal > .10){
+                    console.log(prediction[i].className);
+                    // localStorage.setItem("name", prediction[i].className);
                     // var name=localStorage.getItem("name");
                     // window.open('ht.html');
-                    window.location = '../index.js';
+                    // window.location = '../index.js';
                 }
                 // console.log(maxVal);
             }
